@@ -308,7 +308,10 @@ class FluentTemplate extends BaseTemplate {
 	 */
 	protected function getGravatarUrl() {
 		$genericFace = $this->config->get( 'CanonicalServer' ) . $this->getSkin()->getSkinStylePath('resources/default-user.png');
-		$gravatarUrl = 'https://www.gravatar.com/avatar/' . md5( strtolower( trim( $this->getSkin()->getUser()->getEmail() ) ) ) . '?d=' . urlencode ( $genericFace ) . '&s=' . 100;
+		$gravatarUrl = $genericFace;
+		if ( $this->getSkin()->getUser()->isLoggedIn() ){
+			$gravatarUrl = 'https://www.gravatar.com/avatar/' . md5( strtolower( trim( $this->getSkin()->getUser()->getEmail() ) ) ) . '?d=' . urlencode ( $genericFace ) . '&s=' . 100;
+		}
 		return $gravatarUrl;
 	}
 
